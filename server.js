@@ -41,7 +41,7 @@ app.get('/manufacturers', async(req,res,next) => {
     }
 })
 
-app.use((err, req, req, next) => {
+app.use((err, req, res, next) => {
     console.log(err.stack);
     res.type("text/plain");
     res.status(err.status || 500);
