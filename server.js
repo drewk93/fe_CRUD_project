@@ -16,9 +16,7 @@ const pool = new Pool ({
 })
 
 import cors from 'cors'
-app.use(cors({
-    origin: 'http://127.0.0.1:5500'
-}))
+app.use(cors())
 app.use(express.static('public'))
 
 async function  routes(){
@@ -40,6 +38,20 @@ app.get('/manufacturers', async(req,res,next) => {
         next(err)
     }
 })
+
+app.post('/planes', async (req, res, next) => {
+    try {
+      const { model, tail_number, manufacturer_id } = req.body;
+      const result = await pool.query(
+        'INSERT INTO planes (model, tail_number, manufacturer_id) VALUES ($1, $2, $3) RETURNING *',
+        [model, tail_number, manufacturer_id]
+      );
+      res.status(201).json(result.rows[0]);
+    } catch (err) {
+      console.error('Error creating plane:', err.message);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  });
 
 app.use((err, req, res, next) => {
     console.log(err.stack);

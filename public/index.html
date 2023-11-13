@@ -10,8 +10,18 @@
 </head>
 <body>
     <div id="mainContainer" class="container">
-        <button id="planeBtn" class="btn">Planes</button>
-        <button id="manuBtn" class="btn">Manufacturers</button>
-    </div>
+        <h2>Create Plane</h2>
+        <input type="text" id="planeModel" placeholder="Model">
+        <input type="text" id="planeTailNumber" placeholder="Tail Number">
+        <input type="text" id="planeManufacturerId" placeholder="Manufacturer ID">
+        <button id="createPlaneBtn" class="btn">Create Plane</button>
+
+        <h2>Create Manufacturer</h2>
+        <input type="text" id="manuName" placeholder="Name">
+        <input type="text" id="manuCountry" placeholder="Country">
+        <button id="createManuBtn" class="btn">Create Manufacturer</button>
+
+        <button id="planeBtn" class="btn">Fetch Planes</button>
+        <button id="manuBtn" class="btn">Fetch Manufacturers</button>
 </body>
 </html>
