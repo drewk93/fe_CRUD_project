@@ -12,7 +12,7 @@ $(document).ready(function(){
     // DELETE
     const $deletePlaneBtn  = $('#deletePlaneBtn')
     
-    
+    const $statusContainer = $('#statusContainer')
     
 
 
@@ -151,8 +151,8 @@ $(document).ready(function(){
   }
 
   function patchManu() {
-    console.log('patchPlane Working');
-    const idToPatch = $('#manuIdToPatch').val()
+    $statusContainer.empty()
+    const idToPatch = $('#manuIdToPatch').val();
     const url = `http://localhost:3000/manufacturers/${idToPatch}`;
     const patchedManu = {
         id: idToPatch,
@@ -161,17 +161,23 @@ $(document).ready(function(){
     }
 
     try {
-        const response = $.ajax({
+        $.ajax({
             url,
             type: 'PATCH',
             contentType: 'application/json',
             data: JSON.stringify(patchedManu),
+            success: function (data) {
+                console.log('Manufacturer updated:', data);
+                ; // Display a confirmation message
+                $statusContainer.append(`<p>SUCCESS! Updated Manufacturer:</p>`);
+                $statusContainer.append(`<pre>${JSON.stringify(data.updatedManufacturer, null, 2)}</pre>`);
+            }
         });
-    } catch (error){
-        console.error('Error updating manu:', error)
-        console.error('Failed to patch plane:', patchedManu );
+    } catch (error) {
+        console.error('Error updating manufacturer:', error);
+        console.error('Failed to patch manufacturer:', patchedManu);
     }
-  }
+}
 
 
     // DELETE FUNCTIONS

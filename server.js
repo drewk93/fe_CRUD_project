@@ -142,10 +142,10 @@ async function  routes(){
         const id = parseInt(req.params.id);
         const updatedManufacturer = req.body;
         try {
-        const result = await pool.query(
-            'UPDATE manufacturers SET name = $1, country = $2 WHERE id = $3 RETURNING *',
-            [updatedManufacturer.name, updatedManufacturer.country, id]
-        );
+            const result = await pool.query(
+                'UPDATE manufacturers SET name = $1, country = $2 WHERE id = $3 RETURNING *',
+                [updatedManufacturer.name, updatedManufacturer.country, id]
+            );
 
         // Check if any rows were updated
         if (result.rowCount === 0) {
