@@ -14,9 +14,10 @@ $(document).ready(function(){
     // DELETE
     const $deletePlaneBtn  = $('#deletePlaneBtn');
     const $deleteManuBtn = $('#deleteManuBtn');
-    
     const $statusContainer = $('#statusContainer');
     
+    //SEARCH BY
+    const $searchPlaneSelection = $("#searchPlaneSelection")
 
 
     // READ
@@ -34,6 +35,8 @@ $(document).ready(function(){
     $patchPlaneBtn.on('click', patchPlane)
     $patchManuBtn.on('click', patchManu)
 
+    // SEARCH BY
+    $searchPlaneSelection.on('click',searchPlaneBy)
 
     // READ FUNCTIONS
 
@@ -123,6 +126,37 @@ $(document).ready(function(){
             $statusContainer.append(`<p>Error fetching planes! </p>`);
         }
     }
+
+    function searchPlaneBy() {
+        $statusContainer.empty();
+        $fetchResults.empty();
+      
+        const selectionValue = $("#searchPlaneInput").val();
+        const selectedType = $("#planeDropdown").val();
+        const url = "http://localhost:3000/planes/searchby";
+      
+        try {
+          $.ajax({
+            url,
+            type: 'GET',
+            data: { selection: selectedType, value: selectionValue },
+            success: function (data) {
+              $statusContainer.append(`<p>Success! Fetched Plane!</p>`);
+              $fetchResults.append(`<li class='plane-item'><b>id:</b> ${data.id} <b> model:</b> ${data.model} <b>tail number:</b> ${data.tail_number} <b>manufacturer id</b> ${data.manufacturer_id}</li>`);
+            },
+            error: function (xhr, status, error) {
+              if (xhr.status === 404) {
+                $statusContainer.append(`<p>Error fetching plane!</p>`);
+              }
+            }
+          });
+        } catch (error) {
+          console.error(`Error fetching plane:`, error);
+          $statusContainer.append(`<p>Error fetching plane!</p>`);
+        }
+      }
+
+
     function getManu() {
         $statusContainer.empty();
         $fetchResults.empty();

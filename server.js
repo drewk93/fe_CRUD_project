@@ -32,6 +32,30 @@ async function  routes(){
         }
     });
 
+    app.get('/planes/searchby', async (req, res, next) => {
+        const selection = req.query.selection;
+        const valueToSearch = req.query.value;
+      
+        try {
+          if (!selection || !valueToSearch) {
+            res.status(400).json({ message: 'Both selection and value are required' });
+            return;
+          }
+      
+          const query = `SELECT * FROM planes WHERE $1 = $2`; // Use $1 and $2 as placeholders
+         [selection, valueToSearch]); // Pass values as an array
+      
+          if (planes.length > 0) {
+            res.json(planes);
+          } else {
+            res.status(404).json({ message: 'No planes found with the specified criteria' });
+          }
+        } catch (error) {
+          console.error('Error querying the database:', error);
+          res.status(500).json({ message: 'Internal server error' });
+        }
+      });
+
   
     app.get('/planes/:id', async (req, res, next) => {
         const planeId = parseInt(req.params.id);

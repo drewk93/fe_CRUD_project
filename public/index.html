@@ -11,22 +11,26 @@
 <body>
     <div id="mainContainer" class="container">
         <div id="inputContainer" class="container">
+
             <div id = "planeContainer" class="container">
+
                 <h2>Get Plane</h2>
                 <input type="text" id="planeIdToFetch" placeholder="Enter Plane ID">
                 <button id="fetchOnePlaneBtn" class="btn">Get Plane</button>
                 <button id="planeBtn" class="btn">Get Planes</button>
                 <br>
+
                 <h2>Get Plane by Param</h2>
                 <input type="text" id="searchPlaneInput" placeholder="Enter search">
-                <label for="dropdown">search by
-                <select id="dropdown">
+                <label for="planeDropdown">search by
+                <select id="planeDropdown">
                 <option value="option1">Model</option>
                 <option value="option2">Tail Number</option>
                 <option value="option3">Manufacturer Id</option>
                 </select>
                 <button id="searchPlaneSelection" class="btn">Submit Search</button>
                 <br>
+
                 <h2>Post Plane</h2>
                 <input type="text" id="planeModel" placeholder="Model">
                 <input type="text" id="planeTailNumber" placeholder="Tail Number">
@@ -44,6 +48,7 @@
                 <input type="text" id="planeIdToDelete" placeholder="Target Id">
                 <button id="deletePlaneBtn" class="btn">Delete Plane</button>
             </div>
+
             <div id = "manuContainer" class="container">
                 <h2>Get Manufacturer</h2>
                 <input type="text" id="manuIdToFetch" placeholder="Enter Manufacturer ID">
