@@ -1,0 +1,25 @@
+
+#statusContainer {
+    display: flex;
+    justify-content:center;
+    width: 500px;
+    height: 50px;
+    border: 2px solid black;
+}
+
+#fetchBtns {
+    display: flex;
+    justify-content: space-evenly;
+    width: 500px;
+    border: 3px solid green;
+}
+
+
+#fetchResults {
+    display: flex column;
+    height: 500px;
+    width: 500px;
+    justify-content: space-evenly;
+    border: 5px solid red;
+    overflow-y: scroll;
+}
