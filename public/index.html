@@ -10,59 +10,67 @@
 </head>
 <body>
     <div id="mainContainer" class="container">
-        <div id = "planeContainer" class="container">
-            <h2>Post Plane</h2>
-            <input type="text" id="planeModel" placeholder="Model">
-            <input type="text" id="planeTailNumber" placeholder="Tail Number">
-            <input type="text" id="planeManufacturerId" placeholder="Manufacturer ID">
-            <br>
-            <button id="postPlaneBtn" class="btn">Create Plane</button>
-            
-            <h2>Patch Plane</h2>
-            <input type="text" id="planeIdToPatch" placeholder="Target Id">
-            <input type="text" id="patchedPlaneModel" placeholder="Model">
-            <input type="text" id="patchedPlaneTailNumber" placeholder="Tail Number">
-            <input type="text" id="patchedPlaneManufacturerId" placeholder="Manufacturer ID">
-            <button id="patchPlaneBtn" class="btn">Patch Plane</button>
+        <div id="inputContainer" class="container">
+            <div id = "planeContainer" class="container">
+                <h2>Get Plane</h2>
+                <input type="text" id="planeIdToFetch" placeholder="Enter Plane ID">
+                <button id="fetchOnePlaneBtn" class="btn">Get Plane</button>
+                <button id="planeBtn" class="btn">Get Planes</button>
+                <br>
+                <h2>Get Plane by Param</h2>
+                <input type="text" id="searchPlaneInput" placeholder="Enter search">
+                <label for="dropdown">search by
+                <select id="dropdown">
+                <option value="option1">Model</option>
+                <option value="option2">Tail Number</option>
+                <option value="option3">Manufacturer Id</option>
+                </select>
+                <button id="searchPlaneSelection" class="btn">Submit Search</button>
+                <br>
+                <h2>Post Plane</h2>
+                <input type="text" id="planeModel" placeholder="Model">
+                <input type="text" id="planeTailNumber" placeholder="Tail Number">
+                <input type="text" id="planeManufacturerId" placeholder="Manufacturer ID">
+                <button id="postPlaneBtn" class="btn">Create Plane</button>
+                
+                <h2>Patch Plane</h2>
+                <input type="text" id="planeIdToPatch" placeholder="Target Id">
+                <input type="text" id="patchedPlaneModel" placeholder="Model">
+                <input type="text" id="patchedPlaneTailNumber" placeholder="Tail Number">
+                <input type="text" id="patchedPlaneManufacturerId" placeholder="Manufacturer ID">
+                <button id="patchPlaneBtn" class="btn">Patch Plane</button>
 
-            <h2>Delete Plane</h2>
-            <input type="text" id="planeIdToDelete" placeholder="Target Id">
-            <button id="deletePlaneBtn" class="btn">Delete Plane</button>
+                <h2>Delete Plane</h2>
+                <input type="text" id="planeIdToDelete" placeholder="Target Id">
+                <button id="deletePlaneBtn" class="btn">Delete Plane</button>
+            </div>
+            <div id = "manuContainer" class="container">
+                <h2>Get Manufacturer</h2>
+                <input type="text" id="manuIdToFetch" placeholder="Enter Manufacturer ID">
+                <button id="fetchOneManuBtn" class="btn">Get Manufacturer</button>
+                <button id="manuBtn" class="btn">Get Manufacturers</button>
+                <br>
+                <h2>Post Manufacturer</h2>
+                <input type="text" id="manuName" placeholder="Name">
+                <input type="text" id="manuCountry" placeholder="Country">
+                <button id="postManuBtn" class="btn">Post Manufacturer</button>
+                <h2> Patch Manufacturer</h2>
+                <input type="text" id="manuIdToPatch" placeholder="Target Id">
+                <input type="text" id="patchedManuName" placeholder="Name">
+                <input type="text" id="patchedManuCountry" placeholder="Country">
+                <button id="patchManuBtn" class="btn">Patch Manufacturer</button>
+                <h2> Delete Manufacturer</h2>
+                <input type="text" id="manuIdToDelete" placeholder="Target Id">
+                <button id="deleteManuBtn" class="btn">Delete Manufacturer</button>
+            </div>
         </div>
-        <div id = "manuContainer" class="container">
-            <h2>Post Manufacturer</h2>
-            <input type="text" id="manuName" placeholder="Name">
-            <input type="text" id="manuCountry" placeholder="Country">
-            <br>
-            <button id="postManuBtn" class="btn">Post Manufacturer</button>
-            <h2> Patch Manufacturer</h2>
-            <input type="text" id="manuIdToPatch" placeholder="Target Id">
-            <input type="text" id="patchedManuName" placeholder="Name">
-            <input type="text" id="patchedManuCountry" placeholder="Country">
-            <button id="patchManuBtn" class="btn">Patch Manufacturer</button>
-            <h2> Delete Manufacturer</h2>
-            <input type="text" id="manuIdToDelete" placeholder="Target Id">
-            <button id="deleteManuBtn" class="btn">Delete Manufacturer</button>
-        </div>
+        <div id="textFields" class="container">
         <div id = "statusContainer" class="container">
 
         </div>
-        
-        <div id="fetchBtns" class="container">
-            <h2>Get One Plane</h2>
-            <input type="text" id="planeIdToFetch" placeholder="Enter Plane ID">
-            <button id="fetchOnePlaneBtn" class="btn">Fetch Plane</button>
-            <br>
-            <h2>Get One Manufacturer</h2>
-            <input type="text" id="manuIdToFetch" placeholder="Enter Manufacturer ID">
-            <button id="fetchOneManuBtn" class="btn">Fetch Manufacturer</button>
-            <br>
-            <button id="planeBtn" class="btn">Fetch Planes</button>
-            <button id="manuBtn" class="btn">Fetch Manufacturers</button>
-        </div>
-
         <div id="fetchResults" class="container">
        
+        </div>
         </div>
   
 

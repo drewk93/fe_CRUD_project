@@ -42,6 +42,12 @@ $(document).ready(function(){
         $fetchResults.empty();
     
         const planeId = $('#planeIdToFetch').val();
+
+        if (!planeId || planeId.trim() === '') {
+            $statusContainer.append('<p>Please enter a valid Plane ID.</p>');
+            return; // Exit the function if manuId is empty
+        }
+    
         const url = `http://localhost:3000/planes/${planeId}`;
     
         try {
@@ -51,8 +57,12 @@ $(document).ready(function(){
                 success: function (data) {
                     $statusContainer.append(`<p>SUCCESS! Fetched Plane with ID ${planeId}</p>`);
                     console.log(data);
-                    $fetchResults.append(`<li class='plane-item'><b>id:</b> ${data.id} <b> model:</b> ${data.model} <b>tail number:</b> ${data.tail_number}</li>`);
-                }
+                    $fetchResults.append(`<li class='plane-item'><b>id:</b> ${data.id} <b> model:</b> ${data.model} <b>tail number:</b> ${data.tail_number} <b>manufacturer id</b> ${data.manufacturer_id}</li>`);
+                },
+                error: function (xhr, status, error) {
+                    if (xhr.status === 404) {
+                        $statusContainer.append(`<p>Plane with ID ${planeId} not found.</p>`);
+                    }}
             });
         } catch (error) {
             console.error(`Error fetching plane with ID ${planeId}:`, error);
@@ -63,8 +73,12 @@ $(document).ready(function(){
     function getOneManu() {
         $statusContainer.empty();
         $fetchResults.empty();
-    
         const manuId = $('#manuIdToFetch').val();
+        if (!manuId || manuId.trim() === '') {
+            $statusContainer.append('<p>Please enter a valid Manufacturer ID.</p>');
+            return; // Exit the function if manuId is empty
+        }
+    
         const url = `http://localhost:3000/manufacturers/${manuId}`;
     
         try {
@@ -75,7 +89,11 @@ $(document).ready(function(){
                     $statusContainer.append(`<p>SUCCESS! Fetched Manufacturer with ID ${manuId}</p>`);
                     console.log(data);
                     $fetchResults.append(`<li class='manufacturer-item'><b>id:</b> ${data.id} <b> name:</b> ${data.name} <b>country:</b> ${data.country}</li>`);
-                }
+                },
+                error: function (xhr, status, error) {
+                    if (xhr.status === 404) {
+                        $statusContainer.append(`<p>Manufacturer with ID ${manuId} not found.</p>`);
+                    }}
             });
         } catch (error) {
             console.error(`Error fetching manufacturer with ID ${manuId}:`, error);
@@ -93,10 +111,10 @@ $(document).ready(function(){
                 url,
                 type: "GET",
                 success: function (data) {
-                    $statusContainer.append(`<p>SUCCESS! Fetched Plane!</p>`);
+                    $statusContainer.append(`<p>SUCCESS! Fetched Planes!</p>`);
                     data.forEach((item, index) => {
                         console.log(item);
-                        $fetchResults.append(`<li class='plane-item'><b>id:</b> ${item.id} <b> model:</b> ${item.model} <b>tail number:</b> ${item.tail_number}</li>`);
+                        $fetchResults.append(`<li class='plane-item'><b>id:</b> ${item.id} <b> model:</b> ${item.model} <b>tail number:</b> ${item.tail_number} <b>manufacturer id:</b> ${item.manufacturer_id}</li>`);
                     });
                 }
             });
@@ -115,7 +133,7 @@ $(document).ready(function(){
                 url,
                 type: "GET",
                 success: function (data) {
-                    $statusContainer.append(`<p>SUCCESS! Fetched Manu!</p>`);
+                    $statusContainer.append(`<p>SUCCESS! Fetched Manufacuters!</p>`);
                     data.forEach((item, index) => {
                         console.log(item);
                         $fetchResults.append(`<li class='manufacturer-item'><b>id:</b> ${item.id} <b> name:</b> ${item.name} <b>country:</b> ${item.country}</li>`);
@@ -130,8 +148,11 @@ $(document).ready(function(){
       // CREATE FUNCTIONS
 
     function postPlane() {
+
+
         $statusContainer.empty()
         const url = 'http://localhost:3000/planes';
+
         const newPlane = {
             model: $('#planeModel').val(),
             tail_number: $('#planeTailNumber').val(),
@@ -275,4 +296,6 @@ $(document).ready(function(){
     }
 
     }
+
+
 })

@@ -23,7 +23,7 @@ async function  routes(){
 
     // GET ROUTES
 
-    app.get('/planes', async(req, res, next) => {
+    app.get('/planes/', async(req, res, next) => {
         try {
             const result = await pool.query('SELECT * FROM planes')
             res.status(200).json(result.rows)
@@ -32,6 +32,7 @@ async function  routes(){
         }
     });
 
+  
     app.get('/planes/:id', async (req, res, next) => {
         const planeId = parseInt(req.params.id);
         if (isNaN(planeId) || planeId <= 0) {

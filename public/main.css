@@ -1,25 +1,34 @@
 
+#mainContainer {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+#inputContainer{
+    display: flex column;
+    justify-content: space-evenly;
+    height: 50%;
+    border: 3px solid green;
+    padding: 10
+}
+
 #statusContainer {
     display: flex;
     justify-content:center;
-    width: 500px;
-    height: 200px;
+    width: 800px;
+    height: 40px;
     border: 2px solid black;
 }
 
-#fetchBtns {
-    display: flex column;
-    align-items: center;
-    width: 500px;
-    border: 3px solid green;
-}
 
 
 #fetchResults {
     display: flex column;
     height: 500px;
-    width: 500px;
+    width: 800px;
     justify-content: space-evenly;
     border: 5px solid red;
     overflow-y: scroll;
+    padding: 40px;
+    font-size:x-large;
 }
