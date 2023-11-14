@@ -4,7 +4,7 @@ DROP TABLE IF EXISTS manufacturers;
 CREATE TABLE manufacturers (
     id SERIAL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
-    country VARCHAR(255)
+    country VARCHAR(3) NOT NULL
 );
 
 CREATE TABLE planes (
