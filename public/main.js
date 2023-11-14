@@ -1,22 +1,27 @@
 $(document).ready(function(){
     // READ
-    const $planeBtn = $('#planeBtn')
-    const $manuBtn = $('#manuBtn')
-    const $fetchResults = $('#fetchResults')
+    const $planeBtn = $('#planeBtn');
+    const $manuBtn = $('#manuBtn');
+    const $fetchResults = $('#fetchResults');
+    const $fetchOnePlaneBtn = $('#fetchOnePlaneBtn');
+    const $fetchOneManuBtn = $('#fetchOneManuBtn');
     // CREATE
     const $postPlaneBtn = $('#postPlaneBtn');
-    const $postManuBtn = $('#postManuBtn')
+    const $postManuBtn = $('#postManuBtn');
     // UPDATE
-    const $patchPlaneBtn = $("#patchPlaneBtn")
-    const $patchManuBtn = $("#patchManuBtn")
+    const $patchPlaneBtn = $("#patchPlaneBtn");
+    const $patchManuBtn = $("#patchManuBtn");
     // DELETE
-    const $deletePlaneBtn  = $('#deletePlaneBtn')
+    const $deletePlaneBtn  = $('#deletePlaneBtn');
+    const $deleteManuBtn = $('#deleteManuBtn');
     
-    const $statusContainer = $('#statusContainer')
+    const $statusContainer = $('#statusContainer');
     
 
 
     // READ
+    $fetchOnePlaneBtn.on('click', getOnePlane)
+    $fetchOneManuBtn.on('click',getOneManu)
     $planeBtn.on('click', getPlane);
     $manuBtn.on('click', getManu)
     // CREATE
@@ -24,6 +29,7 @@ $(document).ready(function(){
     $postManuBtn.on('click', postManufacturers)
     // DELETE
     $deletePlaneBtn.on('click', deletePlane)
+    $deleteManuBtn.on('click', deleteManu)
     // UPDATE
     $patchPlaneBtn.on('click', patchPlane)
     $patchManuBtn.on('click', patchManu)
@@ -31,103 +37,153 @@ $(document).ready(function(){
 
     // READ FUNCTIONS
 
-    function getPlane() {
-        console.log("getPlane Working");
+    function getOnePlane() {
+        $statusContainer.empty();
         $fetchResults.empty();
     
+        const planeId = $('#planeIdToFetch').val();
+        const url = `http://localhost:3000/planes/${planeId}`;
+    
+        try {
+            $.ajax({
+                url,
+                type: "GET",
+                success: function (data) {
+                    $statusContainer.append(`<p>SUCCESS! Fetched Plane with ID ${planeId}</p>`);
+                    console.log(data);
+                    $fetchResults.append(`<li class='plane-item'><b>id:</b> ${data.id} <b> model:</b> ${data.model} <b>tail number:</b> ${data.tail_number}</li>`);
+                }
+            });
+        } catch (error) {
+            console.error(`Error fetching plane with ID ${planeId}:`, error);
+            $statusContainer.append(`<p>Error fetching plane with ID ${planeId}!</p>`);
+        }
+    }
+
+    function getOneManu() {
+        $statusContainer.empty();
+        $fetchResults.empty();
+    
+        const manuId = $('#manuIdToFetch').val();
+        const url = `http://localhost:3000/manufacturers/${manuId}`;
+    
+        try {
+            $.ajax({
+                url,
+                type: "GET",
+                success: function (data) {
+                    $statusContainer.append(`<p>SUCCESS! Fetched Manufacturer with ID ${manuId}</p>`);
+                    console.log(data);
+                    $fetchResults.append(`<li class='manufacturer-item'><b>id:</b> ${data.id} <b> name:</b> ${data.name} <b>country:</b> ${data.country}</li>`);
+                }
+            });
+        } catch (error) {
+            console.error(`Error fetching manufacturer with ID ${manuId}:`, error);
+            $statusContainer.append(`<p>Error fetching manufacturer with ID ${manuId}!</p>`);
+        }
+    }
+
+    function getPlane() {
+        $statusContainer.empty();
+        $fetchResults.empty();
         const url = "http://localhost:3000/planes";
     
-        $.ajax({
-            url,
-            type: "GET",
-            success: function (data) {
-                data.forEach((item, index) => {
-                    
-                    console.log(item)
-                    $fetchResults.append(`<li class='plane-item'><b>id:</b> ${item.id} <b> model:</b> ${item.model} <b>tail number:</b> ${item.tail_number}</li>`);
-                });
-            },
-            error: function (xhr, status, error) {
-                console.error("Error fetching planes:", error);
-            },
-        });
-    }
-      
-      function getManu() {
-        console.log("getManu Working");
-        $fetchResults.empty()
-
-        const url = "http://localhost:3000/manufacturers";
-      
-        $.ajax({
-          url,
-          type: "GET",
-          success: function (data) {
-            data.forEach((item, index) => {
-              console.log(item);
-              $fetchResults.append(`<li class='manufacturer-item'><b>id:</b> ${item.id} <b> name:</b> ${item.name} <b>country:</b> ${item.country}</li>`);
+        try {
+            $.ajax({
+                url,
+                type: "GET",
+                success: function (data) {
+                    $statusContainer.append(`<p>SUCCESS! Fetched Plane!</p>`);
+                    data.forEach((item, index) => {
+                        console.log(item);
+                        $fetchResults.append(`<li class='plane-item'><b>id:</b> ${item.id} <b> model:</b> ${item.model} <b>tail number:</b> ${item.tail_number}</li>`);
+                    });
+                }
             });
-          },
-          error: function (xhr, status, error) {
-            console.error("Error fetching manufacturers:", error);
-          },
-        });
-      }
-
+        } catch (error) {
+            console.error('Error fetching planes:', error);
+            $statusContainer.append(`<p>Error fetching planes! </p>`);
+        }
+    }
+    function getManu() {
+        $statusContainer.empty();
+        $fetchResults.empty();
+        const url = "http://localhost:3000/manufacturers";
+    
+        try {
+            $.ajax({
+                url,
+                type: "GET",
+                success: function (data) {
+                    $statusContainer.append(`<p>SUCCESS! Fetched Manu!</p>`);
+                    data.forEach((item, index) => {
+                        console.log(item);
+                        $fetchResults.append(`<li class='manufacturer-item'><b>id:</b> ${item.id} <b> name:</b> ${item.name} <b>country:</b> ${item.country}</li>`);
+                    });
+                }      
+            });
+        } catch (error) {
+            console.error('Error fetching manufacturers:', error);
+            $statusContainer.append(`<p>Error fetching manufacturers!</p>`);
+        }
+    }
       // CREATE FUNCTIONS
 
     function postPlane() {
-        console.log('postPlane Working');
+        $statusContainer.empty()
         const url = 'http://localhost:3000/planes';
         const newPlane = {
             model: $('#planeModel').val(),
             tail_number: $('#planeTailNumber').val(),
             manufacturer_id: $('#planeManufacturerId').val(),
         };
-    
-        $.ajax({
-          url,
-          type: 'POST',
-          contentType: 'application/json',
-          data: JSON.stringify(newPlane),
-          success: function (data) {
-            console.log('Plane posted:', data);
-          },
-          error: function (xhr, status, error) {
-            console.error('Error creating plane:', error);
-          },
-        });
-      }
-
-
-      
+        try {
+            $.ajax({
+            url,
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(newPlane),
+            success: function (data) {
+                console.log('Plane posted:', data);
+                $statusContainer.append(`<p>SUCCESS! Posted Plane!</p>`);
+            }
+            });
+        }catch (error){
+            console.error('Error posting plane:', error);
+            console.error('Failed to post plane:', newPlane)
+            $statusContainer.append(`<p>Failed to post Plane!</p>`); $statusContainer.append(`<p>Failed to post Plane!</p>`);
+            }
+    }
   function postManufacturers() {
-    console.log('postManufacturers Working');
+    $statusContainer.empty()
     const url = 'http://localhost:3000/manufacturers';
 
     const newManufacturer = {
       name: $('#manuName').val(), // Replace with your desired values
       country: $('#manuCountry').val(), // Replace with your desired values
     };
-
-    $.ajax({
-      url,
-      type: 'POST',
-      contentType: 'application/json',
-      data: JSON.stringify(newManufacturer),
-      success: function (data) {
-        console.log('Manufacturer posted:', data);
-      },
-      error: function (xhr, status, error) {
-        console.error('Error creating manufacturer:', error);
-      },
-    });
+    try {
+            $.ajax({
+            url,
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(newManufacturer),
+            success: function (data) {
+                console.log('Manufacturer posted:', data);
+                $statusContainer.append(`<p>SUCCESS! Posted Manufacturer!</p>`);
+            },
+        });
+    } catch (error){
+        console.error('Error posting manufacturer:', error);
+        console.error('Failed to post manufacturer:', newManufacturer);
+        $statusContainer.append(`<p>Failed to post Manu!</p>`); 
+    }
   }
 
   // PATCH/UPDATE FUNCTIONS
 
   function patchPlane() {
-    console.log('patchPlane Working');
+    $statusContainer.empty()
     const idToPatch = $('#planeIdToPatch').val();
     const url = `http://localhost:3000/planes/${idToPatch}`;
     const patchedPlane = {
@@ -138,18 +194,21 @@ $(document).ready(function(){
     };
   
     try {
-      const response = $.ajax({
+      $.ajax({
         url,
         type: 'PATCH',
         contentType: 'application/json',
         data: JSON.stringify(patchedPlane),
+        success: function (data) {
+            console.log('Plane patched:', data);
+            $statusContainer.append(`<p>SUCCESS! Patched Plane</p>`);
+        }
       });
     } catch (error) {
       console.error('Error updating plane:', error);
-      console.log('Failed to patch plane:', patchedPlane)
+      $statusContainer.append(`<p>Error unable to patch plane!</p>`);
     }
   }
-
   function patchManu() {
     $statusContainer.empty()
     const idToPatch = $('#manuIdToPatch').val();
@@ -167,40 +226,53 @@ $(document).ready(function(){
             contentType: 'application/json',
             data: JSON.stringify(patchedManu),
             success: function (data) {
-                console.log('Manufacturer updated:', data);
-                ; // Display a confirmation message
-                $statusContainer.append(`<p>SUCCESS! Updated Manufacturer:</p>`);
-                $statusContainer.append(`<pre>${JSON.stringify(data.updatedManufacturer, null, 2)}</pre>`);
+                console.log('Manufacturer patched:', data);
+                $statusContainer.append(`<p>SUCCESS! Patched Manufacturer</p>`);
             }
         });
     } catch (error) {
         console.error('Error updating manufacturer:', error);
-        console.error('Failed to patch manufacturer:', patchedManu);
+        $statusContainer.append(`<p>Error unable to patch manufacturer!</p>`);
     }
 }
-
-
     // DELETE FUNCTIONS
  function deletePlane() {
-        console.log('deletePlane Working');
+        $statusContainer.empty()
         const $planeIdToDelete = $('#planeIdToDelete').val()
         const url = `http://localhost:3000/planes/${$planeIdToDelete}`;
 
         try {
+            $.ajax({
+                url,
+                type: 'DELETE',
+                success: function (data) {
+                    console.log('Plane deleted:', data);
+                    $statusContainer.append(`<p>SUCCESS! Deleted Plane </p>`);
+                }
+            });
+        }catch (error){
+            console.error('Error deleting plane:', error)
+            $statusContainer.append(`<p>Error deleting plane!</p>`);
+        }
+    }
+    function deleteManu(){
+    $statusContainer.empty()
+    const $manuIdToDelete = $('#manuIdToDelete').val()
+    const url = `http://localhost:3000/manufacturers/${$manuIdToDelete}`;
+
+    try {
         $.ajax({
             url,
             type: 'DELETE',
-            success: function (data) {
-                console.log('Plane deleted:', data);
-            },
-            error: function (xhr, status, error) {
-                console.error('Error deleting plane:', error);
-            },
-        });
-        }catch (error){
-            console.error('Error deleting plane:', error)
-          
-        }
+            success: function (data){
+                console.log('Manu deleted:', data)
+                $statusContainer.append(`<p>SUCCESS! Deleted Manu:</p>`);
+            }
+        })
+    }catch(error){
+        console.error('Error deleting manu:', error)
+        $statusContainer.append(`<p>Error deleting manu! </p>`);
     }
 
+    }
 })
